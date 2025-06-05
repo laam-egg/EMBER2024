@@ -30,9 +30,20 @@ The previous EMBER feature versions were pinned to [LIEF](lief.re) version 0.9.0
 
 ## Installation
 
-To clone and install the repository using pip, run the following commands:
+This repository includes both source code and trained models. If you just want to clone the source code, run:
+
+```
+export GIT_LFS_SKIP_SMUDGE=1
+git clone https://github.com/FutureComputing4AI/EMBER2024.git
+```
+
+If you want to clone everything, run:
 ```
 git clone https://github.com/FutureComputing4AI/EMBER2024.git
+```
+
+Once you've downloaded the repository, you can install it using pip:
+```
 cd EMBER2024/
 pip install .
 ```
@@ -86,15 +97,9 @@ The sizes of the features and labels for each portion of EMBER2024 are shown bel
 | challenge | 126 MB |
 
 
-
-
-
-
-
-
 ## Vectorizing Raw Features
 
-You can vectorize the entire EMBER2024 dataset, or just a portion of it, depending on what you chose to download. You can vectorize the full EMBER2024 dataset with malicious/benign labels using the following Python3 code. This will create train, test, and challenge .dat files in the
+Depending on which files you choose to download, you can vectorize the entire EMBER2024 dataset or just a part of it. The Python code below will create .dat files with feature vectors and malicious/benign labels for the train, test, and challenge sets.
 
 ```
 import thrember
@@ -142,7 +147,7 @@ eval_lgbm.py -- Evaluate a classifier on the test and challenge sets
 
 ## Dataset Methodology
 
-To learn more about how we build EMBER2024, check out our [vtpipeline-rs](https://github.com/FutureComputing4AI/vtpipeline-rs) repository!
+To learn more about how we built EMBER2024, check out our [vtpipeline-rs](https://github.com/FutureComputing4AI/vtpipeline-rs) repository!
 
 
 ## Citing
