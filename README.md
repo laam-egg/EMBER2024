@@ -106,7 +106,7 @@ import thrember
 thrember.create_vectorized_features('/path/to/dataset/')
 ```
 
-If you want to train a classifier on other types of labels or tags, pass the label_type keyword to the create_vectorized_features() function:
+Families and tags were assigned to files using [ClarAVy](https://github.com/FutureComputing4AI/ClarAVy/). If you want to train a classifier on other types of labels or tags, pass the label_type keyword to the create_vectorized_features() function:
 
 ```
 thrember.create_vectorized_features('/path/to/dataset/', label_type="family")
