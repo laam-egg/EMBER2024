@@ -30,28 +30,28 @@ The previous EMBER feature versions were pinned to [LIEF](lief.re) version 0.9.0
 
 ## Installation
 
-This repository includes both source code and trained models. If you just want to clone the source code, run:
-
-```
-export GIT_LFS_SKIP_SMUDGE=1
-git clone https://github.com/FutureComputing4AI/EMBER2024.git
-```
-
-If you want to clone everything, run:
+To clone the repository and install it using pip, run:
 ```
 git clone https://github.com/FutureComputing4AI/EMBER2024.git
-```
-
-Once you've downloaded the repository, you can install it using pip:
-```
 cd EMBER2024/
 pip install .
 ```
 
 
-## Download Dataset
+## Download Models and Dataset
 
-The EMBER2024 features and labels are hosted on HuggingFace. To download it from the HuggingFace hub, launch a Python console, import thrember, and run the download_dataset() function:
+The EMBER2024 models, features, and labels are hosted on HuggingFace. To download them from the HuggingFace hub, launch a Python console, import thrember, and run the download_models() and/or download_dataset() functions:
+
+#### Downloading the models
+
+To download the 14 benchmark LightGBM classifiers we trained on EMBER2024, run:
+
+```
+thrember.download_models("/path/to/download/to/")
+```
+
+
+#### Downloading the data:
 
 ```
 import thrember
