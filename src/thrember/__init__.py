@@ -26,6 +26,7 @@ from .model import (
 )
 from .download import (
     download_dataset,
+    download_models,
 )
 
 __all__ = [
@@ -51,4 +52,5 @@ __all__ = [
     "train_model",
     "vectorize_subset",
     "download_dataset",
+    "download_models",
 ]

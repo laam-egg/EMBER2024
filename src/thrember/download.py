@@ -1,7 +1,7 @@
 import os
 import zipfile
 import argparse
-from huggingface_hub import hf_hub_download
+from huggingface_hub import hf_hub_download, list_repo_files
 
 VALID_SPLITS = ["all", "train", "test", "challenge"]
 VALID_FILES = ["all", "PE", "Win32", "Win64", "Dot_Net", "APK", "ELF", "PDF"]
@@ -54,5 +54,18 @@ def download_dataset(download_dir, split="all", file_type="all"):
         with zipfile.ZipFile(zip_path, "r") as f:
             f.extractall(".")
         os.remove(zip_path)
+    return
 
 
+def download_models(download_dir):
+
+    # cd to download directory
+    if not is_dir(download_dir):
+        raise ValueError("Not a directory: {}".format(download_dir))
+    os.chdir(download_dir)
+
+    repo_id = "joyce8/EMBER2024-benchmark-models"
+    model_files = [file_name for file_name in list_repo_files(repo_id) if file_name.endswith(".model")]
+    for file_name in model_files:
+        hf_hub_download(repo_id=repo_id, filename=file_name, local_dir=download_dir)
+    return
