@@ -2,7 +2,7 @@
 
 EMBER2024 is an update to the [EMBER2017 and EMBER2018](https://github.com/elastic/ember/) datasets. It includes raw features and labels for 3.2 million malicious and benign files from 6 different file types (Win32, Win64, .NET, APK, ELF, and PDF). EMBER2024 is meant to allow researchers to explore a variety of common malware analysis classification tasks. The dataset includes 7 types of labels and tags that support malicious/benign detection, malware family classification, malware behavior prediction, and more.
 
-For more details, check out our [paper](https://arxiv.org/abs/2506.05074)!
+For more details, check out our [paper](https://arxiv.org/pdf/2506.05074)!
 
 
 ## EMBER2024 Contents
