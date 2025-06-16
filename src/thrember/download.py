@@ -30,7 +30,7 @@ def download_dataset(download_dir, split="all", file_type="all"):
         splits = [split]
 
     # Get file type(s) to download
-    file_types = VALID_FILES[1:]
+    file_types = VALID_FILES[2:]
     if file_type == "PE":
         file_types = ["Win32", "Win64", "Dot_Net"]
     elif file_type != "all":
