@@ -3,9 +3,18 @@
 ## Utility Scripts
 
 ```sh
+cd my_scripts
 python download.py
 python load_datasets.py
 python vectorize_win32.py
+```
+
+Actually just download the models,
+then run inference:
+
+```sh
+cd my_scripts
+python inference.py
 ```
 
 ## Evaluate LGBM
