@@ -1,0 +1,12 @@
+{
+    "loader": {
+        "host": "localhost",
+        "port": 4000
+    },
+
+    "self": {
+        "lmdb_path": "/path/to/outputted/lmdb/file"
+    },
+
+    "debug": true
+}
