@@ -13,7 +13,7 @@ msgpack_numpy.patch()
 
 THRESHOLD = 0.5
 
-FRAME_SIZE = 64
+FRAME_SIZE = 2048
 
 MODELS_PATH = Path("../models")
 
@@ -39,9 +39,13 @@ def main():
         TOTAL_FP = 0
         TOTAL_FN = 0
 
+        TOTAL_TRUE = 0
+        TOTAL_FALSE = 0
+
         def process_frame(vectors_in_frame, labels_in_frame):
             nonlocal frame_number, TOTAL_HITS, TOTAL_MISSES, TOTAL_COUNT
             nonlocal TOTAL_TP, TOTAL_TN, TOTAL_FP, TOTAL_FN
+            nonlocal TOTAL_TRUE, TOTAL_FALSE
 
             try:
                 frame_input = np.stack(vectors_in_frame, axis=0)
@@ -58,7 +62,11 @@ def main():
                 frame_size = len(vectors_in_frame)
                 assert hits + misses == frame_size
 
-                print(f"Frame #{frame_number} (size={frame_size}): hits={hits}, misses={misses}, tp={tp}, fp={fp}, fn={fn}, tn={tn}")
+                num_true = np.sum((frame_labels == 1))
+                num_false = np.sum((frame_labels == 0))
+                assert num_true + num_false == frame_size
+
+                print(f"Frame #{frame_number} (size={frame_size} = {num_true} positive + {num_false} negative samples):\n    hits={hits}, misses={misses}, tp={tp}, fp={fp}, fn={fn}, tn={tn}")
 
                 vectors_in_frame.clear()
                 labels_in_frame.clear()
@@ -70,6 +78,8 @@ def main():
                 TOTAL_TN += tn
                 TOTAL_FP += fp
                 TOTAL_FN += fn
+                TOTAL_TRUE += num_true
+                TOTAL_FALSE += num_false
             finally:
                 frame_number += 1
 
@@ -95,7 +105,12 @@ def main():
     recall = TOTAL_TP / (TOTAL_TP + TOTAL_FN) if (TOTAL_TP + TOTAL_FN) > 0 else 0.0
     f1 = 2 * (precision * recall) / (precision + recall) if (precision + recall) > 0 else 0.0
 
+    print("============== DATASET ================")
     print(f"TOTAL: {TOTAL_COUNT}")
+    print(f"    = {TOTAL_TRUE} positive samples")
+    print(f"    + {TOTAL_FALSE} negative samples")
+    print()
+    print("============= INFERENCE ===============")
     print(f"TOTAL HITS: {TOTAL_HITS}")
     print(f"TOTAL MISSES: {TOTAL_MISSES}")
     print(f"Accuracy: {accuracy:.2%}")
