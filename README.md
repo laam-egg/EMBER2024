@@ -40,6 +40,7 @@ To run inference on those extracted features:
 ```sh
 cd my_scripts
 python infer_extracted_features.py
+python infer_and_evaluate.py
 ```
 
 ## Evaluate LGBM
