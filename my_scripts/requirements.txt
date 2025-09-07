@@ -2,4 +2,5 @@ msgpack==1.1.1
 msgpack-numpy==0.4.8
 numpy==2.3.2
 lmdb==1.7.3
-git+https://github.com/pefe-system/pefe-agent.git@80b55828c3dc91d8cff8ab45e8847c1984ab9ac8#egg=pefe_agent
+git+https://github.com/pefe-system/pefe-agent.git@ebfcff95ec626242cc97b6e7b313a2ebbdd508cd#egg=pefe_agent
+git+https://github.com/pefe-system/pefe-ief.git@2cc37b681211d7133561291b968c67e976625b9d#egg=pefe_ief

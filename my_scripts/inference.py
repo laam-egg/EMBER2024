@@ -1,8 +1,11 @@
+import sys
+root_dir = sys.argv[1]
+
 import lightgbm as lgb
 import thrember
 from pathlib import Path
-import os
 import time
+import os
 
 THRESHOLD = 0.5
 
@@ -10,12 +13,6 @@ MODELS_PATH = Path("../models")
 
 # Step 0: Load the LightGBM model
 model = lgb.Booster(model_file=MODELS_PATH / "EMBER2024_all.model")
-
-# files = [
-#     ["/home/lam/Desktop/Viettel/MORE_DATA/MalDICT/disarmed_behavior_train/VirusShare_c9a0b3afb01bb38f76cb6dba115932a0", 1],
-#     ["/home/lam/Desktop/Viettel/MORE_DATA/DikeDataset/files/benign/0a8deb24eef193e13c691190758c349776eab1cd65fba7b5dae77c7ee9fcc906.exe", 0],
-# ]
-root_dir = "/home/lam/Desktop/Viettel/MORE_DATA/DataLake_MalwareBazaar/unzipped"
 
 def inspect(filename):
     with open(filename, "rb") as f:

@@ -56,10 +56,10 @@ def compute_and_plot(y_test, y_probs, roc_curve_func=roc_curve):
     plt.show()
 
 def main():
-    print(f"Step 1/3: Loading the LightGBM model...", flush=True)
+    print(f"Step 1/4: Loading the LightGBM model...", flush=True)
     model = lgb.Booster(model_file=MODELS_PATH / "EMBER2024_all.model")
 
-    print(f"Step 2/3: Loading data into RAM...", flush=True)
+    print(f"Step 2/4: Loading data into RAM...", flush=True)
     db = lmdb.open(config['self']['lmdb_path'], readonly=True, lock=False, map_size=1024 * 1024 * 1024 * 1024) # 1 TB
     y_test = []
     X_test = []
@@ -83,14 +83,16 @@ def main():
     assert PROGRESS.n == num_entries
     PROGRESS.close()
 
-    print(f"Step 2/3: Loading data into RAM: Realigning...", flush=True)
+    print(f"Step 2/4: Loading data into RAM: Realigning...", flush=True)
     X_test = np.stack(X_test, axis=0)
     y_test = np.array(y_test)
+
+    print(f"Step 3/4: Running model inference...", flush=True)
     y_probs = model.predict(X_test)
 
-    print(f"Step 3/3: Computing and plotting evaluation metrics: Using roc_curve_custom...", flush=True)
+    print(f"Step 4/4: Computing and plotting evaluation metrics: Using roc_curve_custom...", flush=True)
     compute_and_plot(y_test, y_probs, roc_curve_func=roc_curve_custom)
-    print(f"Step 3/3: Computing and plotting evaluation metrics: Using sklearn.metrics.roc_curve...", flush=True)
+    print(f"Step 4/4: Computing and plotting evaluation metrics: Using sklearn.metrics.roc_curve...", flush=True)
     compute_and_plot(y_test, y_probs, roc_curve_func=roc_curve)
 
     print("DONE.")
