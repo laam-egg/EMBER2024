@@ -952,7 +952,10 @@ class AuthenticodeSignature(FeatureType):
                     raw_obj["no_countersigner"] = 1
 
                 # Check if cert is self-signed
-                certs = signed_data.certificates
+
+                # certs = signed_data.certificates
+                certs = list(signed_data.certificates) # patch by Vu Tung Lam
+
                 if len(certs) > raw_obj["chain_max_depth"]:
                     raw_obj["chain_max_depth"] = len(certs)
                 for cert in certs[:-1]:
