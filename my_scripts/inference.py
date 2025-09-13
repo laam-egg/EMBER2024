@@ -34,28 +34,28 @@ def inspect(filename):
 
     duration = end_time - start_time
     
-    return score >= THRESHOLD, duration, len(raw_bytes)
+    return score, score >= THRESHOLD, duration, len(raw_bytes)
 
 malware_count = 0
 total_count = 0
 total_inference_duration = 0
 total_bytes = 0
 
-for dirpath, dirnames, filenames in os.walk(root_dir):
+for dirpath, dirnames, filenames in os.walk(root_dir, followlinks=True):
     for filename in filenames:
-        if filename.lower().endswith(".exe"):
+        # if filename.lower().endswith(".exe"):
             total_count += 1
             full_path = os.path.join(dirpath, filename)
             print(f"Inspecting {full_path} ... ", end="", flush=True)
-            is_malware, duration, num_bytes = inspect(full_path)
+            score, is_malware, duration, num_bytes = inspect(full_path)
             speed = num_bytes / duration
             total_inference_duration += duration
             total_bytes += num_bytes
             if is_malware:
                 malware_count += 1
-                print("MALWARE | ", end="", flush=True)
+                print(f"MALWARE | {score} ", end="", flush=True)
             else:
-                print("BENIGN  | ", end="", flush=True)
+                print(f"BENIGN  | {score} ", end="", flush=True)
             print(f"[{num_bytes} (B) / {duration:.3f} (s)] ", end="", flush=True)
             print()
 
