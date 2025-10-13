@@ -25,7 +25,7 @@ def inspect(filename):
 
     # Step 2: Vectorize the features into a numeric array
     X = extractor.process_raw_features(features)  # vectorize() expects a list
-    # print("Feature vector:", len(X), X)
+    # print("Feature vector:", X.tolist())
 
     # Step 4: Predict
     score = model.predict([X])[0]
@@ -48,7 +48,7 @@ for dirpath, dirnames, filenames in os.walk(root_dir, followlinks=True):
             full_path = os.path.join(dirpath, filename)
             print(f"Inspecting {full_path} ... ", end="", flush=True)
             score, is_malware, duration, num_bytes = inspect(full_path)
-            speed = num_bytes / duration
+            speed = num_bytes / duration if duration != 0 else 0
             total_inference_duration += duration
             total_bytes += num_bytes
             if is_malware:
@@ -61,7 +61,7 @@ for dirpath, dirnames, filenames in os.walk(root_dir, followlinks=True):
 
 print("Total count:", total_count)
 print("Malware count:", malware_count)
-print("Malware percent: %.2f%%" % (malware_count / total_count * 100))
+print("Malware percent: %.2f%%" % (malware_count / total_count * 100 if total_count != 0 else 0))
 print("Total inference duration: %.3f (s)" % total_inference_duration)
 print("Total bytes of PE files inferred: %d" % total_bytes)
-print(f"Average inference speed: {(total_bytes / total_inference_duration):.3f} (B/s)")
+print(f"Average inference speed: {(total_bytes / total_inference_duration if total_inference_duration != 0 else 0):.3f} (B/s)")
