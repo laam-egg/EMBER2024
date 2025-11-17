@@ -7,7 +7,6 @@ from typing import Iterator
 import lightgbm as lgb
 import numpy as np
 import polars as pl
-import tqdm
 from sklearn.metrics import make_scorer, roc_auc_score
 from sklearn.model_selection import GridSearchCV, TimeSeriesSplit, train_test_split
 
@@ -85,6 +84,7 @@ def read_label_subset(raw_feature_paths: list[Path], nrows: int, label_type: str
     """
     Read the unique labels/tags in the subset
     """
+    import tqdm
     # Distribute the vectorization work
     pool = multiprocessing.Pool()
     argument_iterator = (
@@ -149,6 +149,7 @@ def vectorize_subset(X_path: Path, y_path: Path, raw_feature_paths: list[Path], 
     """
     Vectorize a subset of data and write it to disk
     """
+    import tqdm
     # Create space on disk to write features to
     X = np.memmap(X_path, dtype=np.float32, mode="w+", shape=(nrows, extractor.dim))
     if label_type == "label" or label_type == "family":

@@ -7,6 +7,7 @@
     - [Quick Inference](#quick-inference)
     - [Mass Feature Extraction](#mass-feature-extraction)
     - [Mass Inference and Evaluation](#mass-inference-and-evaluation)
+  - [Packing Inference Model into EXE](#packing-inference-model-into-exe)
   - [Appendix: Evaluate LGBM](#appendix-evaluate-lgbm)
 
 ## Setup
@@ -135,6 +136,38 @@ at once, then evaluate the results.
     **might not display properly when hosted**
     **and accessed online,** you might have to
     download it instead.
+
+## Packing Inference Model into EXE
+
+On Windows, install PyInstaller and UPX.
+
+Then, create a new Python virtual environment,
+and install minimal dependencies (for reduced
+EXE file size):
+
+```powershell
+pip install -r requirements-inference-exe.txt
+```
+
+Then run PyInstaller (**from project root**) as
+follows - with your actual UPX installation
+directory filled in:
+
+```powershell
+pyinstaller ^
+  --exclude-module matplotlib ^
+  --exclude-module cycler ^
+  --exclude-module fonttools ^
+  --exclude-module contourpy ^
+  --exclude-module kiwisolver ^
+  --onefile .\my_scripts\inference_exe.py ^
+  --add-data "models;models" ^
+  --add-data "venv\Lib\site-packages\mscerts;mscerts" ^
+  --upx-dir <path\to\UPX\installation\directory>
+```
+
+The resulting EXE file is about 75 MB.
+Run it with flag `--help` for usage.
 
 ## Appendix: Evaluate LGBM
 

@@ -12,6 +12,8 @@ It may be useful to do feature selection to reduce this set of features to a mea
 for your modeling problem.
 """
 
+import sys
+
 import os
 import hashlib
 import json
@@ -1035,7 +1037,7 @@ class PEFormatWarnings(FeatureType):
                     found_warning = True
                     break
             if not found_warning:
-                print("WARN: Unknown pefile warning:", warning)
+                print("WARN: Unknown pefile warning:", warning, file=sys.stderr)
 
         return sorted(warnings_norm)
 

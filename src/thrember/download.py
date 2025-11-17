@@ -1,7 +1,6 @@
 import os
 import zipfile
 import argparse
-from huggingface_hub import hf_hub_download, list_repo_files
 
 VALID_SPLITS = ["all", "train", "test", "challenge"]
 VALID_FILES = ["all", "PE", "Win32", "Win64", "Dot_Net", "APK", "ELF", "PDF"]
@@ -14,6 +13,7 @@ def is_dir(file_path):
 
 
 def download_dataset(download_dir, split="all", file_type="all"):
+    from huggingface_hub import hf_hub_download
 
     # cd to download directory
     if not is_dir(download_dir):
@@ -58,6 +58,7 @@ def download_dataset(download_dir, split="all", file_type="all"):
 
 
 def download_models(download_dir):
+    from huggingface_hub import hf_hub_download, list_repo_files
 
     # cd to download directory
     if not is_dir(download_dir):
