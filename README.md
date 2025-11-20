@@ -154,15 +154,15 @@ follows - with your actual UPX installation
 directory filled in:
 
 ```powershell
-pyinstaller ^
-  --exclude-module matplotlib ^
-  --exclude-module cycler ^
-  --exclude-module fonttools ^
-  --exclude-module contourpy ^
-  --exclude-module kiwisolver ^
-  --onefile .\my_scripts\inference_exe.py ^
-  --add-data "models;models" ^
-  --add-data "venv\Lib\site-packages\mscerts;mscerts" ^
+pyinstaller `
+  --exclude-module matplotlib `
+  --exclude-module cycler `
+  --exclude-module fonttools `
+  --exclude-module contourpy `
+  --exclude-module kiwisolver `
+  --onefile .\my_scripts\inference_exe.py `
+  --add-data "models;models" `
+  --add-data "venv\Lib\site-packages\mscerts;mscerts" `
   --upx-dir <path\to\UPX\installation\directory>
 ```
 
