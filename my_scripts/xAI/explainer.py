@@ -40,6 +40,7 @@ class Contribution(AbstractRecord):
     name: str
     contribution: float
     impact: str
+    value: float | None = None
 
 @dataclass
 class ModelExplanation(AbstractRecord):
@@ -151,6 +152,7 @@ class TreeModelExplainer(AbstractModelExplainer):
                 name=feature.get_fqfn(),
                 contribution=val,
                 impact=format_odds_change(val),
+                value=feature_vector[feature.location],
             )
 
             for feature, val in feature_contribs

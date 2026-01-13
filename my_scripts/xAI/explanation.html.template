@@ -161,6 +161,8 @@ function renderSummary(data) {
 }
 
 function renderTable(title, idSuffix, contributions) {
+  const ENABLE_FEATURE_VALUES = (contributions.length > 0 && typeof contributions[0].value === 'number');
+
   const card = document.createElement("div");
   card.className = "card mb-4";
 
@@ -179,6 +181,7 @@ function renderTable(title, idSuffix, contributions) {
             <thead class="table-light">
               <tr>
                 <th>Name</th>
+                ${ENABLE_FEATURE_VALUES ? '<th class="num">Value</th>' : ''}
                 <th class="num">Contribution</th>
                 <th>Impact</th>
               </tr>
@@ -202,6 +205,7 @@ function renderTable(title, idSuffix, contributions) {
     //   tr.className = impactRowClass(c.impact);
       tr.innerHTML = `
         <td>${c.name}</td>
+        ${ENABLE_FEATURE_VALUES ? `<td class="num">${formatNumber(c.value)}</td>` : ''}
         <td class="num">${formatNumber(c.contribution)}</td>
         <td class="impact-text ${impactRowClass(c.impact)}">${c.impact}</td>
       `;

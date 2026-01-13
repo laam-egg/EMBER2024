@@ -194,7 +194,7 @@ features: list[FeatureLocationGroup | FeatureLocation] = [
                 "printabledist",
                 [ F(f"{i} ({repr(chr(i))})") for i in range(0x20, 0x7f+1) ]
             ),
-            F("printables_entropy"),
+            F("printables_entropy").cat(CAT_ENTROPY),
             GROUP(
                 "string_counts",
                 [ F(f"{i} {regex}") for i, regex in enumerate(INTERESTING_STRING_REGEXES) ]
@@ -330,7 +330,7 @@ features: list[FeatureLocationGroup | FeatureLocation] = [
 
                     GROUP(
                         "section_entropy",
-                        [ F(x) for x in ['max', 'min'] ]
+                        [ F(x).cat(CAT_ENTROPY) for x in ['max', 'min'] ]
                     ),
 
                     GROUP(
@@ -375,7 +375,7 @@ features: list[FeatureLocationGroup | FeatureLocation] = [
                 [
                     F("size"),
                     F("size_ratio").desc("overlay.size / fileSize"),
-                    F("entropy"),
+                    F("entropy").cat(CAT_ENTROPY),
                 ]
             )
         ]

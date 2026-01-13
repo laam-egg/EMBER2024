@@ -8,6 +8,7 @@
     - [Mass Feature Extraction](#mass-feature-extraction)
     - [Mass Inference and Evaluation](#mass-inference-and-evaluation)
   - [Packing Inference Model into EXE](#packing-inference-model-into-exe)
+  - [xAI](#xai)
   - [Appendix: Evaluate LGBM](#appendix-evaluate-lgbm)
 
 ## Setup
