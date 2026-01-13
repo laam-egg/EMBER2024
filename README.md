@@ -169,6 +169,10 @@ pyinstaller `
 The resulting EXE file is about 75 MB.
 Run it with flag `--help` for usage.
 
+## xAI
+
+[See this file](./my_scripts/xAI/README.md).
+
 ## Appendix: Evaluate LGBM
 
 The script by original authors.
