@@ -287,7 +287,7 @@ def explain(file_path: str) -> str:
 
     return export_html(explanation_json)
 
-html_output = explain("Z:\\SHARED\\ProcessHollowing.exe")
-with open("explanation.html", 'w', encoding='utf-8') as f:
-    f.write(html_output)
+# html_output = explain("Z:\\SHARED\\ProcessHollowing.exe")
+# with open("explanation.html", 'w', encoding='utf-8') as f:
+#     f.write(html_output)
 # ==================================== #

@@ -1,3 +1,6 @@
+import multiprocessing as mp
+mp.set_start_method("spawn", force=True)
+
 import os
 import uuid
 import hmac
@@ -43,9 +46,18 @@ CPU_WORKERS = max(os.cpu_count() - 1, 1)
 # App & Executor
 # ==================================================
 
-app = FastAPI(title="xAI Explainer")
+from contextlib import asynccontextmanager
 
-executor = ProcessPoolExecutor(max_workers=CPU_WORKERS)
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    executor = ProcessPoolExecutor(max_workers=CPU_WORKERS)
+    app.state.executor = executor
+    try:
+        yield
+    finally:
+        executor.shutdown(wait=True, cancel_futures=True)
+
+app = FastAPI(title="xAI Explainer", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -139,12 +151,12 @@ def upload_page(_: None = Depends(require_auth)):
         <input type="file" name="file"/>
         <button type="submit">Explain</button>
     </form>
-    <div>Remember to download/save the result HTML file since it won't be available the next time you load it.</div>
     """
 
 
 @app.post("/explain")
 async def explain_file(
+    request: Request,
     file: UploadFile = File(...),
     _: None = Depends(require_auth),
 ):
@@ -163,6 +175,7 @@ async def explain_file(
                 raise HTTPException(status_code=413, detail="File too large")
             f.write(chunk)
 
+    executor = request.app.state.executor
     future = executor.submit(worker, str(input_path))
     jobs[job_id] = Job(job_id, workdir, future)
 
