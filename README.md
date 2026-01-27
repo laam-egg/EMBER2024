@@ -4,6 +4,7 @@
   - [Setup](#setup)
   - [Utility Scripts](#utility-scripts)
     - [Download the Models](#download-the-models)
+    - [Vectorize the Dataset](#vectorize-the-dataset)
     - [Quick Inference](#quick-inference)
     - [Mass Feature Extraction](#mass-feature-extraction)
     - [Mass Inference and Evaluation](#mass-inference-and-evaluation)
@@ -45,6 +46,20 @@ But if you just want to
 run inference and evaluate
 on your own custom dataset,
 you don't need that.
+
+### Vectorize the Dataset
+
+The original authors provide
+[a way to do that](./README-original.md#vectorizing-raw-features).
+But oh god it requires 44.8 GB of RAM ?
+
+So I made a script that vectorize
+the dataset into - well not a numpy
+data file - but a SQLite3 database file.
+[Check it out.](./my_scripts/vectorize.py).
+
+Or, download the vectorized dataset
+[here](https://www.kaggle.com/datasets/laamegg/ember2024-dataset-sqlite3)
 
 ### Quick Inference
 
